@@ -1,0 +1,122 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    userId            String               @id @unique
+    name              String
+    phone             String?
+    email             String
+    street            String?
+    zipCode           String?
+    city              String?
+    state             String?
+    houseNumber       String?
+    addressComplement String?
+    district          String?
+    cpf               String?
+    dateOfBirth       DateTime?
+    password          String
+    orders            Order[]
+    usedCoupons       UserDiscountCoupon[]
+    isStorekeeper     Boolean
+    managedStores     Store[]
+    status            String               @default("active")
+    createdAt         DateTime             @default(now())
+    updatedAt         DateTime             @updatedAt
+}
+
+model Store {
+    storeId           String           @id @unique
+    storeName         String
+    street            String?
+    zipCode           String?
+    city              String?
+    state             String?
+    houseNumber       String?
+    addressComplement String?
+    district          String?
+    storePhone        String?
+    ownerId           String
+    owner             User             @relation(fields: [ownerId], references: [userId])
+    discountCoupons   DiscountCoupon[]
+    orders            Order[]
+    createdAt         DateTime         @default(now())
+    updatedAt         DateTime         @updatedAt
+    visualSettings    VisualSettings?
+}
+
+model VisualSettings {
+    visualSettingsId    String   @id @unique
+    primaryColor        String
+    secondaryColor      String
+    buyButtonText       String
+    cancelBuyButtonText String
+    promoteText         String
+    storeId             String
+    store               Store    @relation(fields: [visualSettingsId], references: [storeId])
+    createdAt           DateTime @default(now())
+    updatedAt           DateTime @updatedAt
+}
+
+model UserDiscountCoupon {
+    id             String         @id
+    couponId       String
+    discountCoupon DiscountCoupon @relation(fields: [couponId], references: [couponId])
+    userId         String
+    user           User           @relation(fields: [userId], references: [userId])
+    orderId        String
+    order          Order          @relation(fields: [orderId], references: [orderId])
+    usedAt         DateTime       @default(now())
+}
+
+model DiscountCoupon {
+    couponId      String               @id @unique
+    storeId       String
+    store         Store                @relation(fields: [storeId], references: [storeId])
+    couponName    String
+    limitQuantity Int?
+    limitDate     DateTime?
+    singleUse     Boolean?
+    status        String               @default("active")
+    customers     UserDiscountCoupon[]
+    createdAt     DateTime             @default(now())
+    updatedAt     DateTime             @updatedAt
+}
+
+model Order {
+    orderId           String               @id @unique
+    orderCreationDate String
+    orderShippingDate String
+    orderShippingId   String
+    customerId        String
+    customer          User[]
+    storeId           String
+    store             Store                @relation(fields: [storeId], references: [storeId])
+    status            String
+    orderDetails      OrderDetail[]
+    usedCouponId      String
+    baseValue         Int
+    shippingValue     Int
+    totalValue        Int
+    usedCoupons       UserDiscountCoupon[]
+    createdAt         DateTime             @default(now())
+    updatedAt         DateTime             @updatedAt
+}
+
+model OrderDetail {
+    orderDetailId    String   @id @unique
+    productName      String
+    productQuantity  Int
+    productUnitPrice Int
+    productId        String
+    orderId          String
+    order            Order    @relation(fields: [orderId], references: [orderId])
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @updatedAt
+}
