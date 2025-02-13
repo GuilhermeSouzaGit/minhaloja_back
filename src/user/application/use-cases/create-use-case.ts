@@ -1,7 +1,7 @@
+import { CustomErrorMessage } from "../../../utils/errorHandler/exceptions/CustomErrorMessage";
+import { CreateUserDTO } from "../../domain/dtos/user/create";
 import { User } from "../../domain/entities/user.entity";
-import { CreateUserDTO } from "../../dtos/user/create";
 import { UserRepository } from "../../infra/repositories/user.repository";
-import { CustomErrorMessage } from "../../utils/errorHandler/exceptions/CustomErrorMessage";
 
 export class CreateUserUseCase {
 	constructor(private readonly userRepository: UserRepository) {}

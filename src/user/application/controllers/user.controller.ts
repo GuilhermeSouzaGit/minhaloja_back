@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
-import { CreateUserDTO } from "../dtos/user/create";
-import { CreateUserUseCase } from "../use-cases/user/create-use-case";
-import { UserRepository } from "../infra/repositories/user.repository";
+import { CreateUserUseCase } from "../use-cases/create-use-case";
+import { UserRepository } from "../../infra/repositories/user.repository";
+import { CreateUserDTO } from "../../domain/dtos/user/create";
 
 export class UserController {
 	private createUserUseCase: CreateUserUseCase;

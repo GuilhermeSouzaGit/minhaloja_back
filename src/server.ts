@@ -4,7 +4,7 @@ import cors from "cors";
 import express, { Express } from "express";
 import RouterManager from "./routes";
 import { globalErrorMiddleware } from "./utils/errorHandler/globalErrorMiddleware";
-import { DatabaseConnection } from "./infra/db/database.connection.interface";
+import { DatabaseConnection } from "./db/database.connection.interface";
 
 export class Server {
 	private app: Express;

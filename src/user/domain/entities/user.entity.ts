@@ -1,5 +1,5 @@
 import { v7 as uuid } from "uuid";
-import { CustomErrorMessage } from "../../utils/errorHandler/exceptions/CustomErrorMessage";
+import { CustomErrorMessage } from "../../../utils/errorHandler/exceptions/CustomErrorMessage";
 
 export class User {
 	private constructor(
@@ -26,8 +26,7 @@ export class User {
 
 	private static isEmailValid(email: string): void {
 		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-		if (!emailRegex.test(email))
-			throw new CustomErrorMessage(400, "Formato do email inválido");
+		if (!emailRegex.test(email)) throw new CustomErrorMessage(400, "Formato do email inválido");
 	}
 
 	public static create(name: string, email: string, password: string): User {

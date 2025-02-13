@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { userRoutes } from "./User.routes";
+import { userRoutes } from "../user/application/routes/User.routes";
 
 class RouterManager {
 	private routes = Router();

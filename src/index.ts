@@ -1,4 +1,4 @@
-import { Database } from "./infra/db/connectDB";
+import { Database } from "./db/connectDB";
 import { Server } from "./server";
 
 async function initializeServer() {

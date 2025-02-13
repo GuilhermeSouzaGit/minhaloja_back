@@ -1,6 +1,6 @@
+import { prisma } from "../../../db/prisma";
 import { User } from "../../domain/entities/user.entity";
 import { IUserRepository } from "../../domain/interfaces/user.interface";
-import { prisma } from "../db/prisma";
 
 export class UserRepository implements IUserRepository {
 	async save(user: User): Promise<User> {
